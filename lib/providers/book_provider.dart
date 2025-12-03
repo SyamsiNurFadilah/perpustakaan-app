@@ -15,7 +15,7 @@ class BookProvider extends ChangeNotifier {
 
       books = await _service.getBooks();
     } catch (e) {
-      books = []; // fallback kalau API error
+      books = [];
     } finally {
       loading = false;
       notifyListeners();

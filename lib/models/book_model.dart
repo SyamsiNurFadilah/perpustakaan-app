@@ -51,4 +51,6 @@ class BookModel {
       "deskripsi": deskripsi,
     };
   }
+
+  copyWith({required int stok}) {}
 }

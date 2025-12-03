@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:perpustakaan_app/pages/detail_book_page.dart';
 import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
 import '../providers/auth_provider.dart';
@@ -19,7 +20,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      // ignore: use_build_context_synchronously
       Provider.of<BookProvider>(context, listen: false).fetchBooks();
     });
 
@@ -53,7 +53,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
       body: SafeArea(
         child: Column(
           children: [
-            // Header
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Row(
@@ -90,7 +89,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
               ),
             ),
 
-            // Search
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               child: TextField(
@@ -110,7 +108,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
 
             const SizedBox(height: 10),
 
-            // Grid
             Expanded(
               child:
                   bookProv.loading
@@ -132,7 +129,15 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                             final b = filtered[i];
 
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => DetailBookPage(book: b),
+                                  ),
+                                );
+                              },
+
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
                                 child: Stack(
@@ -163,7 +168,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                                               ),
                                     ),
 
-                                    // GRADIENT HITAM
                                     Positioned.fill(
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -179,7 +183,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                                       ),
                                     ),
 
-                                    // TEKS DI BAGIAN BAWAH SEPERTI ADMIN
                                     Positioned(
                                       bottom: 10,
                                       left: 10,
@@ -240,7 +243,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
         ),
       ),
 
-      // BOTTOM NAVIGATION
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.indigo,

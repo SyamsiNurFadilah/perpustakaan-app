@@ -80,7 +80,6 @@ class _HomePageState extends State<HomePage> {
               ? const Center(child: CircularProgressIndicator())
               : Column(
                 children: [
-                  // 🔍 SEARCH BAR
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -133,7 +132,6 @@ class _HomePageState extends State<HomePage> {
                                     borderRadius: BorderRadius.circular(16),
                                     child: Stack(
                                       children: [
-                                        // COVER
                                         Positioned.fill(
                                           child: Image.network(
                                             book.cover,
@@ -149,7 +147,6 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
 
-                                        // GRADIENT
                                         Positioned.fill(
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -167,7 +164,6 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
 
-                                        // TEXT
                                         Positioned(
                                           bottom: 8,
                                           left: 8,
@@ -218,7 +214,6 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
 
-                                        // EDIT + DELETE
                                         Positioned(
                                           top: 8,
                                           right: 8,

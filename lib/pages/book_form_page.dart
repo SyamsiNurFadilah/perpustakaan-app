@@ -40,7 +40,6 @@ class _BookFormPageState extends State<BookFormPage> {
   ];
 
   String? previewUrl;
-  // NOTE: demoLocalFilePath sering tidak bisa di-web. Kita gunakan placeholder jika bukan URL HTTP.
   final String demoLocalFilePath =
       '/mnt/data/519c0273-4efa-45c1-9480-2def79bc1aba.png';
 
@@ -57,13 +56,11 @@ class _BookFormPageState extends State<BookFormPage> {
     );
     coverC = TextEditingController(text: widget.book?.cover ?? '');
 
-    // FIX: pastikan widget.book tidak null ketika mengecek cover
     previewUrl =
         (widget.book != null && (widget.book!.cover.isNotEmpty))
             ? widget.book!.cover
             : null;
 
-    // listen changes to coverC for live preview with debounce
     coverC.addListener(_onCoverChanged);
     penerbitC = TextEditingController(text: widget.book?.penerbit ?? '');
     bahasaC = TextEditingController(text: widget.book?.bahasa ?? '');
@@ -124,7 +121,6 @@ class _BookFormPageState extends State<BookFormPage> {
         result = await provider.updateBook(newBook);
       }
     } catch (e) {
-      // jika provider melempar error, kita tangani di sini
       result = false;
     } finally {
       if (!mounted) return;
@@ -134,7 +130,6 @@ class _BookFormPageState extends State<BookFormPage> {
     }
 
     if (result) {
-      // kirim hasil ke halaman sebelumnya agar bisa menampilkan snackbar dan refresh
       Navigator.pop(context, widget.book == null ? 'added' : 'updated');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -151,7 +146,6 @@ class _BookFormPageState extends State<BookFormPage> {
   Widget _buildPreview() {
     final url = previewUrl;
 
-    // jika tidak ada atau bukan URL mulai dengan http(s), tampilkan placeholder
     if (url == null || url.isEmpty) {
       return Container(
         height: 180,
@@ -167,7 +161,6 @@ class _BookFormPageState extends State<BookFormPage> {
 
     final low = url.toLowerCase();
     if (!(low.startsWith('http://') || low.startsWith('https://'))) {
-      // bukan URL jaringan — tampilkan placeholder (lebih aman)
       return Container(
         height: 180,
         decoration: BoxDecoration(
@@ -241,7 +234,6 @@ class _BookFormPageState extends State<BookFormPage> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        // Judul
                         TextFormField(
                           controller: judulC,
                           decoration: InputDecoration(
@@ -261,7 +253,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 12),
 
-                        // Penulis
                         TextFormField(
                           controller: penulisC,
                           decoration: InputDecoration(
@@ -281,7 +272,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 12),
 
-                        // Kategori dropdown
                         DropdownButtonFormField<String>(
                           value:
                               categories.contains(kategoriC.text)
@@ -314,7 +304,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 12),
 
-                        // Stok numeric
                         TextFormField(
                           controller: stokC,
                           keyboardType: TextInputType.number,
@@ -337,7 +326,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 12),
 
-                        // Penerbit
                         TextFormField(
                           controller: penerbitC,
                           decoration: InputDecoration(
@@ -357,7 +345,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 12),
 
-                        // Bahasa
                         TextFormField(
                           controller: bahasaC,
                           decoration: InputDecoration(
@@ -377,7 +364,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 12),
 
-                        // Deskripsi
                         TextFormField(
                           controller: deskripsiC,
                           maxLines: 4,
@@ -399,7 +385,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 12),
 
-                        // Cover URL + preview button
                         TextFormField(
                           controller: coverC,
                           keyboardType: TextInputType.url,
@@ -430,7 +415,6 @@ class _BookFormPageState extends State<BookFormPage> {
                         ),
                         const SizedBox(height: 18),
 
-                        // submit button
                         SizedBox(
                           width: double.infinity,
                           height: 48,

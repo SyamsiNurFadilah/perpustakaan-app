@@ -25,7 +25,6 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // FOTO + NAMA
             Column(
               children: [
                 CircleAvatar(
@@ -52,7 +51,6 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // CARD INFORMASI
             Container(
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
@@ -90,7 +88,6 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // MENU
             Column(
               children: [
                 menuTile(Icons.settings, "Pengaturan", () {}),
@@ -101,7 +98,6 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // LOGOUT BUTTON
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -150,7 +146,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // REUSABLE TILE UNTUK INFO
   Widget infoTile(String label, String value, IconData icon) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
@@ -179,7 +174,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // REUSABLE MENU TILE
   Widget menuTile(IconData icon, String title, VoidCallback onTap) {
     return Column(
       children: [
