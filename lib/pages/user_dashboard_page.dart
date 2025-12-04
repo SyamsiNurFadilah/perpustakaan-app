@@ -4,6 +4,12 @@ import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
 import '../providers/auth_provider.dart';
 
+// ==== Tambahan Import untuk Navigasi ====
+import 'my_book_page.dart';
+// import 'borrow_history_page.dart';
+import 'profile_page.dart';
+// ========================================
+
 class UserDashboardPage extends StatefulWidget {
   const UserDashboardPage({super.key});
 
@@ -32,6 +38,41 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
   void dispose() {
     _searchC.dispose();
     super.dispose();
+  }
+
+  // 🔥 Fungsi Navigasi (SATU-SATUNYA bagian yang saya tambahkan)
+  void _onNavTapped(int index) {
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0: // Beranda
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const UserDashboardPage()),
+        );
+        break;
+
+      case 1: // Buku Saya
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const MyBooksPage()),
+        );
+        break;
+
+      // case 2: // Transaksi
+      //   Navigator.pushReplacement(
+      //     context,
+      //     MaterialPageRoute(builder: (_) => const BorrowHistoryPage()),
+      //   );
+      //   break;
+
+      case 3: // Akun
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const ProfilePage()),
+        );
+        break;
+    }
   }
 
   @override
@@ -110,7 +151,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
 
             Expanded(
               child:
-                  bookProv.loading
+                  bookProv.loading ?? false
                       ? const Center(child: CircularProgressIndicator())
                       : filtered.isEmpty
                       ? const Center(child: Text("Buku tidak ditemukan"))
@@ -137,12 +178,10 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                                   ),
                                 );
                               },
-
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
                                 child: Stack(
                                   children: [
-                                    // COVER
                                     Positioned.fill(
                                       child:
                                           b.cover.isNotEmpty
@@ -167,7 +206,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                                                 ),
                                               ),
                                     ),
-
                                     Positioned.fill(
                                       child: Container(
                                         decoration: BoxDecoration(
@@ -182,7 +220,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                                         ),
                                       ),
                                     ),
-
                                     Positioned(
                                       bottom: 10,
                                       left: 10,
@@ -243,11 +280,12 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
         ),
       ),
 
+      // 🔥 Navigasi Dibenarkan
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.indigo,
         unselectedItemColor: Colors.grey,
-        onTap: (i) => setState(() => _selectedIndex = i),
+        onTap: _onNavTapped, // ← Benar, ganti ke fungsi baru
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Buku Saya'),

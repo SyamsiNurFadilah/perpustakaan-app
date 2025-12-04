@@ -19,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final ok = await auth.login(emailC.text, passC.text);
       if (ok) {
-        // Cek role dari AuthProvider
         if (auth.user?.role == 'admin') {
           Navigator.pushReplacement(
             context,

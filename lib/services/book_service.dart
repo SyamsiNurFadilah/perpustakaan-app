@@ -31,11 +31,11 @@ class BookService {
     }
   }
 
-  Future<bool> updateBook(BookModel oldBook, BookModel newBook) async {
+  Future<bool> updateBook(String id, BookModel book) async {
     final res = await http.put(
-      Uri.parse('$baseUrl/${oldBook.id}'),
+      Uri.parse('$baseUrl/$id'),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode(newBook.toJson()),
+      body: jsonEncode(book.toJson()),
     );
 
     if (res.statusCode == 200) {
@@ -44,6 +44,33 @@ class BookService {
       print("ERROR UPDATE: ${res.statusCode} | ${res.body}");
       return false;
     }
+  }
+
+  Future<BookModel?> getBookById(String id) async {
+    final res = await http.get(Uri.parse('$baseUrl/$id'));
+    if (res.statusCode == 200) {
+      return BookModel.fromJson(json.decode(res.body));
+    }
+    return null;
+  }
+
+  Future<bool> updateBookStock(String id, int newStock) async {
+    final book = await getBookById(id);
+    if (book == null) return false;
+
+    final updated = BookModel(
+      id: book.id,
+      judul: book.judul,
+      penulis: book.penulis,
+      kategori: book.kategori,
+      stok: newStock,
+      cover: book.cover,
+      penerbit: '${book.penulis}',
+      bahasa: '${book.bahasa}',
+      deskripsi: '${book.deskripsi}',
+    );
+
+    return await updateBook(id, updated);
   }
 
   Future<bool> deleteBook(String id) async {

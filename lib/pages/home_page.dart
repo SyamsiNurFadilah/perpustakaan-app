@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       ),
 
       body:
-          provider.loading
+          provider.loading ?? false
               ? const Center(child: CircularProgressIndicator())
               : Column(
                 children: [

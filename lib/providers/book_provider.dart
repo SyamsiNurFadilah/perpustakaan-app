@@ -8,6 +8,8 @@ class BookProvider extends ChangeNotifier {
 
   final BookService _service = BookService();
 
+  get myBooks => null;
+
   Future<void> fetchBooks() async {
     try {
       loading = true;
@@ -22,6 +24,11 @@ class BookProvider extends ChangeNotifier {
     }
   }
 
+  void addToMyBooks(BookModel book) {
+    myBooks.add(book);
+    notifyListeners();
+  }
+
   Future<bool> addBook(BookModel book) async {
     bool ok = await _service.addBook(book);
     if (ok) fetchBooks();
@@ -29,7 +36,7 @@ class BookProvider extends ChangeNotifier {
   }
 
   Future<bool> updateBook(BookModel book) async {
-    bool ok = await _service.updateBook(book.id as BookModel, book);
+    bool ok = await _service.updateBook(book.id ?? '', book);
     if (ok) fetchBooks();
     return ok;
   }

@@ -1,5 +1,5 @@
 class BookModel {
-  final String? id; // id boleh null saat tambah
+  final String? id;
   final String judul;
   final String penulis;
   final String kategori;
@@ -23,7 +23,7 @@ class BookModel {
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
     return BookModel(
-      id: json['id']?.toString(),
+      id: json['id'],
       judul: (json['judul'] ?? '').toString(),
       penulis: (json['penulis'] ?? '').toString(),
       kategori: (json['kategori'] ?? '').toString(),
