@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import '../models/borrows_book_model.dart';
 
 class BorrowService {
-  // ganti dengan URL MockAPI borrows-mu (akun kedua)
   static const String BORROWS_BASE_URL =
       'https://69315d8511a8738467ce7408.mockapi.io/borrows';
 

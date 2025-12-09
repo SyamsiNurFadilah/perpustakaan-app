@@ -15,17 +15,47 @@ class AuthProvider with ChangeNotifier {
   Future<bool> login(String email, String password) async {
     _loading = true;
     notifyListeners();
+
     try {
       final u = await _service.login(email.trim(), password.trim());
       _loading = false;
+
       if (u != null) {
         _user = u;
         notifyListeners();
         return true;
-      } else {
-        notifyListeners();
-        return false;
       }
+
+      notifyListeners();
+      return false;
+    } catch (e) {
+      _loading = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  Future<bool> register({
+    required String nama,
+    required String email,
+    required String password,
+    required String role,
+  }) async {
+    _loading = true;
+    notifyListeners();
+
+    try {
+      final result = await _service.register(
+        nama: nama.trim(),
+        email: email.trim(),
+        password: password.trim(),
+        role: role,
+      );
+
+      _loading = false;
+      notifyListeners();
+
+      return result;
     } catch (e) {
       _loading = false;
       notifyListeners();

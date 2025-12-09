@@ -6,7 +6,7 @@ class BorrowModel {
   final String cover;
   final String borrowedAt;
   final String? returnedAt;
-  final String status; // "borrowed" or "returned"
+  final String status;
 
   BorrowModel({
     this.id,

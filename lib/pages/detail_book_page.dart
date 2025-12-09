@@ -11,7 +11,6 @@ class DetailBookPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ➜ tambahkan ini
     final auth = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(

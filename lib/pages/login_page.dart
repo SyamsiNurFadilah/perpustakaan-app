@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_app/pages/main_navigation.dart';
 import 'package:perpustakaan_app/pages/user_dashboard_page.dart';
+import 'package:perpustakaan_app/pages/user_main_navigation.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
+import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
     final auth = Provider.of<AuthProvider>(context, listen: false);
     try {
       final ok = await auth.login(emailC.text, passC.text);
+
       if (ok) {
         if (auth.user?.role == 'admin') {
           Navigator.pushReplacement(
@@ -27,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
         } else {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => const UserDashboardPage()),
+            MaterialPageRoute(builder: (_) => const UserMainNavigation()),
           );
         }
       } else {
@@ -36,15 +39,16 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Email atau password salah')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Email atau password salah')),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -63,6 +67,8 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(fontSize: 14),
               ),
               const SizedBox(height: 28),
+
+              // EMAIL
               TextField(
                 controller: emailC,
                 decoration: const InputDecoration(
@@ -71,7 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
+
               const SizedBox(height: 12),
+
+              // PASSWORD
               TextField(
                 controller: passC,
                 decoration: const InputDecoration(
@@ -80,10 +89,21 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 obscureText: true,
               ),
+
               const SizedBox(height: 24),
+
+              // LOGIN BUTTON
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                   onPressed: auth.loading ? null : doLogin,
                   child:
                       auth.loading
@@ -96,6 +116,22 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           )
                           : const Text('Login'),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // REGISTER BUTTON
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const RegisterPage()),
+                  );
+                },
+                child: const Text(
+                  "Belum punya akun? Daftar",
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ],

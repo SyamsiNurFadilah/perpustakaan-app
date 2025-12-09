@@ -3,12 +3,8 @@ import 'package:perpustakaan_app/pages/detail_book_page.dart';
 import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
 import '../providers/auth_provider.dart';
-
-// ==== Tambahan Import untuk Navigasi ====
 import 'my_book_page.dart';
-// import 'borrow_history_page.dart';
 import 'profile_page.dart';
-// ========================================
 
 class UserDashboardPage extends StatefulWidget {
   const UserDashboardPage({super.key});
@@ -40,33 +36,25 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
     super.dispose();
   }
 
-  // 🔥 Fungsi Navigasi (SATU-SATUNYA bagian yang saya tambahkan)
   void _onNavTapped(int index) {
     if (index == _selectedIndex) return;
 
     switch (index) {
-      case 0: // Beranda
+      case 0:
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const UserDashboardPage()),
         );
         break;
 
-      case 1: // Buku Saya
+      case 1:
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const MyBooksPage()),
         );
         break;
 
-      // case 2: // Transaksi
-      //   Navigator.pushReplacement(
-      //     context,
-      //     MaterialPageRoute(builder: (_) => const BorrowHistoryPage()),
-      //   );
-      //   break;
-
-      case 3: // Akun
+      case 2:
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const ProfilePage()),
@@ -278,23 +266,6 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             ),
           ],
         ),
-      ),
-
-      // 🔥 Navigasi Dibenarkan
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.indigo,
-        unselectedItemColor: Colors.grey,
-        onTap: _onNavTapped, // ← Benar, ganti ke fungsi baru
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Buku Saya'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: 'Transaksi',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Akun'),
-        ],
       ),
     );
   }

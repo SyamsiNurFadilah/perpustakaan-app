@@ -298,7 +298,7 @@ class _BookFormPageState extends State<BookFormPage> {
                           onChanged: (v) {
                             if (v != null) {
                               kategoriC.text = v;
-                              setState(() {}); // update if needed
+                              setState(() {});
                             }
                           },
                         ),

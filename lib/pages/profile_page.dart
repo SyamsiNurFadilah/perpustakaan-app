@@ -1,9 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
+import 'user_dashboard_page.dart';
+import 'my_book_page.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  int _selectedIndex = 2;
+
+  void _onNavTapped(int index) {
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const UserDashboardPage()),
+        );
+        break;
+
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const MyBooksPage()),
+        );
+        break;
+
+      case 2:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +111,6 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   const Divider(height: 25),
-
                   infoTile("Nama", username, Icons.person),
                   infoTile("Email", email, Icons.email),
                 ],

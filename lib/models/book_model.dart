@@ -39,6 +39,8 @@ class BookModel {
 
   get title => null;
 
+  get userId => null;
+
   Map<String, dynamic> toJson() {
     return {
       "judul": judul,

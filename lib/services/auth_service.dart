@@ -18,4 +18,20 @@ class AuthService {
       throw Exception('Gagal terhubung ke server (status: ${res.statusCode})');
     }
   }
+
+  Future<bool> register({
+    required String nama,
+    required String email,
+    required String password,
+    required String role,
+  }) async {
+    final url = Uri.parse('$base/users?email=$email&password=$password');
+
+    final res = await http.post(
+      url,
+      body: {"nama": nama, "email": email, "password": password, "role": role},
+    );
+
+    return res.statusCode == 201;
+  }
 }

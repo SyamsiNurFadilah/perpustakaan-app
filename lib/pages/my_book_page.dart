@@ -4,8 +4,6 @@ import '../providers/borrows_book_provider.dart';
 import '../providers/auth_provider.dart';
 import '../models/borrows_book_model.dart';
 import 'borrow_detail_page.dart';
-
-// Import untuk navigasi
 import 'user_dashboard_page.dart';
 import 'profile_page.dart';
 
@@ -46,7 +44,7 @@ class _MyBooksPageState extends State<MyBooksPage> {
       case 1:
         break;
 
-      case 3:
+      case 2:
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const ProfilePage()),
@@ -62,14 +60,11 @@ class _MyBooksPageState extends State<MyBooksPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white, // sama seperti beranda
+        backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
           "Buku Saya",
-          style: TextStyle(
-            color: Colors.black, // sama dengan teks di beranda
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
         iconTheme: const IconThemeData(color: Colors.black),
@@ -197,21 +192,17 @@ class _MyBooksPageState extends State<MyBooksPage> {
                 },
               ),
 
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.indigo,
-        unselectedItemColor: Colors.grey,
-        onTap: _onNavTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Beranda"),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label: "Buku Saya"),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
-            label: "Transaksi",
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Akun"),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: _selectedIndex,
+      //   selectedItemColor: Colors.indigo,
+      //   unselectedItemColor: Colors.grey,
+      //   onTap: _onNavTapped,
+      //   items: const [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: "Beranda"),
+      //     BottomNavigationBarItem(icon: Icon(Icons.book), label: "Buku Saya"),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: "Akun"),
+      //   ],
+      // ),
     );
   }
 }
