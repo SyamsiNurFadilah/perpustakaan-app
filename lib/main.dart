@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_app/providers/borrows_book_provider.dart';
+import 'package:perpustakaan_app/providers/borrorw_admin_provider.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 import 'providers/book_provider.dart';
@@ -12,6 +13,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => BookProvider()),
         ChangeNotifierProvider(create: (_) => BorrowProvider()),
+        ChangeNotifierProvider(create: (_) => BorrowAdminProvider()),
       ],
       child: const MyApp(),
     ),

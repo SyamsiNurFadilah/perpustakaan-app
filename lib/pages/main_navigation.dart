@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:perpustakaan_app/pages/profile_page.dart';
+import 'package:perpustakaan_app/pages/borrow_status_page.dart';
 import 'home_page.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -14,7 +15,11 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> screens = const [HomePage(user: false), ProfilePage()];
+    final List<Widget> screens = const [
+      HomePage(user: false),
+      BorrowStatusPage(),
+      ProfilePage(),
+    ];
 
     return Scaffold(
       body: screens[index],
@@ -29,6 +34,10 @@ class _MainNavigationState extends State<MainNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.library_books),
             label: "Daftar Buku",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt),
+            label: "Status Peminjaman",
           ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profil"),
         ],
